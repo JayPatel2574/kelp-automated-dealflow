@@ -5,7 +5,7 @@ from src.ppt.branding import add_logo_text, add_footer
 from src.ppt.layout_engine import white_content_panel
 
 
-def build_overview(prs, slide, data):
+def build_overview(prs, slide, data, overview_text):
     white_content_panel(slide, Inches(0.5), Inches(1.2), Inches(9), Inches(4.8))
 
     box = slide.shapes.add_textbox(
@@ -16,7 +16,7 @@ def build_overview(prs, slide, data):
     tf.word_wrap = True
 
     bullets = [
-        data["company_profile"]["description"],
+        overview_text,
         f"Website: {data['company_profile']['website']}"
     ]
 

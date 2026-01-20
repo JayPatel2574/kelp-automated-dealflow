@@ -8,7 +8,7 @@ from src.processing.insight_generator import InsightGenerator
 from src.processing.anonymizer import Anonymizer
 from src.ppt.ppt_builder import PPTBuilder
 from src.citations.citation_doc import CitationBuilder
-
+from src.utils.file_utils import ensure_dir
 
 def run_pipeline(company_slug: str):
     raw_dir = Path("data/raw") / company_slug
@@ -43,10 +43,12 @@ def run_pipeline(company_slug: str):
 
     # 6. PPT generation
     output_dir = Path("outputs") / company_slug
+    ensure_dir(output_dir)   # <-- THIS LINE FIXES EVERYTHING
+
     ppt_path = output_dir / "TargetCo_Teaser.pptx"
 
     ppt = PPTBuilder()
-    ppt.build(anon_data, insights, str(ppt_path))
+    ppt.build(anon_data, insights, sector, str(ppt_path))
 
     print(f"[SUCCESS] PPT generated: {ppt_path}")
 

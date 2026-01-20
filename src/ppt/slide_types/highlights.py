@@ -5,7 +5,10 @@ from src.ppt.theme import FONT_BODY, BODY_SIZE
 from src.ppt.layout_engine import full_bleed_background
 
 
-def build_highlights(prs, slide, insights):
+def build_highlights(prs, slide, highlights):
+    """
+    highlights: List[str] (already AI-refined)
+    """
     full_bleed_background(slide, prs, KELP_DARK_INDIGO)
 
     box = slide.shapes.add_textbox(
@@ -13,8 +16,9 @@ def build_highlights(prs, slide, insights):
         Inches(8.4), Inches(4.5)
     )
     tf = box.text_frame
+    tf.clear()
 
-    for i, highlight in enumerate(insights["highlights"][:4]):
+    for i, highlight in enumerate(highlights[:4]):
         p = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
         p.text = f"• {highlight}"
         p.font.name = FONT_BODY
